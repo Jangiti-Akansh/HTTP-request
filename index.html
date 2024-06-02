@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html><head>
+    <title>
+        Gradious AJAX Exercise
+    </title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="./lib/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="./lib/fontawesome/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Didact+Gothic&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
+    <script src="./lib/bootstrap.bundle.min.js"></script>
+    <script src="./js/script.js"></script>
+
+    <header>
+        <p> Gradious AJAX Exercise </p>
+        <div id="grow">
+            <input type="text" id="searchBar" placeholder="Enter name to search.."><i class="fa-solid fa-magnifying-glass" id="searchIcon"></i>
+        </div>
+        
+        <button id="addUser" type="button"><i class="fa-solid fa-user-plus"></i></button>
+
+        <div class="modal fade show" id="modalAddUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-body">
+                    <form id="addUserForm">
+                        <input type="text" id="inputName" placeholder="Name">
+                        <input type="number" id="inputAge" placeholder="Age" max="100" min="0">
+                        <select id="inputState">
+                            <option disabled="" selected="">State</option>
+                            <option>Andaman and Nicobar Islands</option>
+                            <option>Andhra Pradesh</option>
+                            <option>Arunachal Pradesh</option>
+                            <option>Assam</option>
+                            <option>Bihar</option>
+                            <option>Chandigarh</option>
+                            <option>Chhattisgarh</option>
+                            <option>Dadra and Nagar Haveli and Daman &amp; Diu</option>
+                            <option>Delhi</option>
+                            <option>Goa</option>
+                            <option>Gujarat</option>
+                            <option>Haryana</option>
+                            <option>Himachal Pradesh</option>
+                            <option>Jammu &amp; Kashimr</option>
+                            <option>Jharkand</option>
+                            <option>Karnataka</option>
+                            <option>Kerala</option>
+                            <option>Ladakh</option>
+                            <option>Lakshadweep</option>
+                            <option>Madhya Pradesh</option>
+                            <option>Maharashtra</option>
+                            <option>Manipur</option>
+                            <option>Meghalaya</option>
+                            <option>Mizoram</option>
+                            <option>Nagaland</option>
+                            <option>Odisha</option>
+                            <option>Puducherry</option>
+                            <option>Punjab</option>
+                            <option>Rajasthan</option>
+                            <option>Sikkim</option>
+                            <option>Tamil Nadu</option>
+                            <option>Telanagana</option>
+                            <option>Tripura</option>
+                            <option>Uttar Pradesh</option>
+                            <option>Uttarakhand</option>
+                            <option>West Bengal</option>
+                        </select>
+                        <button type="button" class="btn btn-primary" id="addUserButton">Add User</button>
+                    </form>
+                </div>
+              </div>
+            </div>
+        </div>
+    </header>
+    <main>
+        <table id="table">
+            <tr id="tableHeadings">
+                <th class="name">Name</th>
+                <th class="age">Age</th>
+                <th class="state">State</th>
+                <th class="functions">Functions</th>
+            </tr>
+            <tr class="user" id="user1">
+              <td class="name">Hari</td>
+              <td class="age">49</td>
+              <td class="state">Himachal Pradesh</td>
+              <td class="functions">
+                  <button class="edit" onclick="editUser();" type="button" id="1"><i class="fa-solid fa-pen-clip"></i></button><button class="deleteB" onclick="deleteUser();"type="button" id="1"><i class="fa-solid fa-trash-can"></i></button>
+              </td>
+            </tr>
+            <tr class="user" id="user3">
+              <td class="name">Vasu</td>
+              <td class="age">16</td>
+              <td class="state">Bihar</td>
+              <td class="functions">
+                <button class="edit" onclick="editUser();" type="button" id="3"><i class="fa-solid fa-pen-clip"></i></button><button class="deleteB" onclick="deleteUser();"type="button" id="3"><i class="fa-solid fa-trash-can"></i></button>
+              </td>
+            </tr>
+            <tr class="user" id="user5">
+              <td class="name">Sri</td>
+              <td class="age">21</td>
+              <td class="state">Telanagana</td>
+              <td class="functions">
+                <button class="edit" onclick="editUser();" type="button" id="5"><i class="fa-solid fa-pen-clip"></i></button><button class="deleteB" onclick="deleteUser();"type="button" id="5"><i class="fa-solid fa-trash-can"></i></button>
+              </td>
+            </tr>
+            <tr class="user" id="user6">
+              <td class="name">parth</td>
+              <td class="age">9</td>
+              <td class="state">Arunachal Pradesh</td>
+              <td class="functions">
+                <button class="edit" onclick="editUser();" type="button" id="6"><i class="fa-solid fa-pen-clip"></i></button><button class="deleteB" onclick="deleteUser();"type="button" id="6"><i class="fa-solid fa-trash-can"></i></button>
+              </td>
+            </tr>
+        </table>
+    </main>
+    <div class="modal" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Confirm the User</h5>
+              <button type="button" class="close deleteCancel" data-bs-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <h5><b>Deleting: <span id="userDeleted"></span></b></h5>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger confirmDelete" data-bs-dismiss="modal">Delete</button>
+              <button type="button" class="btn btn-secondary deleteCancel" data-bs-dismiss="modal">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+
+</body><grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration></html>
